@@ -25,6 +25,7 @@ const es = {
   },
   projects: { eyebrow: "Laboratorio", description: "Un espacio para productos, experimentos y soluciones que merecen ser compartidas.", comingSoon: "Próximamente", empty: "Los mejores proyectos se están preparando para despegar.", cta: "Crear algo juntos" },
   blog: { eyebrow: "Notas de campo", title: "Ideas que compilan.", description: "Frontend, arquitectura, liderazgo y las decisiones detrás de productos que funcionan.", read: "Leer entrada →", emptyTitle: "La primera idea está cocinándose.", empty: "Este espacio estará lleno de aprendizajes muy pronto.", create: "Crear entrada", minutes: "min" },
+  contact: { eyebrow: "Conectemos", title: "Hagamos algo extraordinario.", description: "¿Tienes una idea, un reto técnico o una oportunidad? Estoy a un mensaje de distancia.", email: "Correo", whatsapp: "WhatsApp", linkedin: "LinkedIn", location: "Ubicación", locationValue: "Bogotá, Colombia" },
 } as const;
 
 export default es;

@@ -32,9 +32,19 @@ Solo la cuenta cuyo correo coincide con `ADMIN_EMAIL` puede completar el acceso 
 
 ## Blog
 
-La capa de dominio depende de la interfaz `BlogRepository` en `lib/blog/types.ts`. SQLite es solo el adaptador actual (`SqliteBlogRepository`), de modo que puede sustituirse por PostgreSQL, una API o un CMS implementando la misma interfaz y cambiando la factoría de `lib/blog/repository.ts`.
+La capa de dominio depende de la interfaz `BlogRepository` en `lib/blog/types.ts`. En desarrollo se usa SQLite (`SqliteBlogRepository`) y, cuando existe `DATABASE_URL`, se usa Neon Postgres (`NeonBlogRepository`). Esto mantiene intercambiable la infraestructura de persistencia.
 
 La base local se crea en `data/blog.db` y no se versiona. Puede cambiarse con `BLOG_DATABASE_PATH`.
+
+## Producción con Neon
+
+Vercel no permite una base SQLite persistente en el sistema de archivos. Crea un proyecto en [Neon](https://neon.tech), copia la cadena de conexión desde **Connect** y registra `DATABASE_URL` en las variables de entorno de Vercel. El formato es:
+
+```env
+DATABASE_URL=postgresql://usuario:contrasena@host.neon.tech/neondb?sslmode=require
+```
+
+En el siguiente despliegue las tablas `posts`, `social_connections` y `social_publications` se crean automáticamente. No definas `BLOG_DATABASE_PATH` en Vercel.
 
 El editor editorial usa Tiptap y guarda HTML sanitizado. Permite formato, listas, citas, código, enlaces, imágenes por URL y subida local de imágenes PNG, JPG, WebP o GIF de hasta 5 MB. Las imágenes subidas se guardan en `public/uploads`.
 
@@ -46,7 +56,7 @@ Desde `Blog → Área privada → Configurar LinkedIn` puedes vincular el perfil
 http://localhost:3000/api/social/linkedin/callback
 ```
 
-En producción sustituye `localhost:3000` por el dominio público HTTPS. Añade `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET` y `SOCIAL_TOKEN_ENCRYPTION_KEY` a `.env.local`. La conexión y cada resultado de publicación se guardan en SQLite; el token se cifra con AES-256-GCM antes de persistirse.
+En producción sustituye `localhost:3000` por el dominio público HTTPS. Añade `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET` y `SOCIAL_TOKEN_ENCRYPTION_KEY` a `.env.local`. La conexión y cada resultado de publicación se guardan en la base configurada; el token se cifra con AES-256-GCM antes de persistirse.
 
 ## Comandos
 

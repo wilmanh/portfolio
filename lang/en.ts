@@ -96,6 +96,16 @@ const en = {
     create: "Create post",
     minutes: "min",
   },
+  contact: {
+    eyebrow: "Let’s connect",
+    title: "Let’s make something extraordinary.",
+    description: "Do you have an idea, a technical challenge, or an opportunity? I’m only a message away.",
+    email: "Email",
+    whatsapp: "WhatsApp",
+    linkedin: "LinkedIn",
+    location: "Location",
+    locationValue: "Bogotá, Colombia",
+  },
 } as const;
 
 export default en;
