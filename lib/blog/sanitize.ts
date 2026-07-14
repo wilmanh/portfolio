@@ -1,0 +1,3 @@
+import "server-only";
+import sanitizeHtml from "sanitize-html";
+export function sanitizePostHtml(html: string) { return sanitizeHtml(html, { allowedTags: ["p", "br", "strong", "em", "s", "ul", "ol", "li", "blockquote", "pre", "code", "a", "img", "h2", "h3"], allowedAttributes: { a: ["href", "target", "rel"], img: ["src", "alt", "title"] }, allowedSchemes: ["http", "https"], allowedSchemesByTag: { img: ["http", "https"] }, transformTags: { a: sanitizeHtml.simpleTransform("a", { rel: "noreferrer noopener", target: "_blank" }), img: (_tag, attributes) => ({ tagName: "img", attribs: { ...attributes, src: attributes.src?.startsWith("/") ? new URL(attributes.src, process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").toString() : attributes.src ?? "" } }) } }); }

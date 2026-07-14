@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio · Wilman Hernández
 
-## Getting Started
+Portfolio profesional construido con Next.js 16, React 19, Bulma y `react-ui-vegetas-wife`.
 
-First, run the development server:
+## Desarrollo
 
 ```bash
+npm install
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Acceso editorial con Google
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+El panel usa Google OAuth mediante Auth.js. Crea un cliente OAuth de tipo **Aplicación web** en Google Cloud y configura:
 
-## Learn More
+```env
+ADMIN_EMAIL=correo-de-google-autorizado@gmail.com
+AUTH_GOOGLE_ID=client-id-de-google
+AUTH_GOOGLE_SECRET=client-secret-de-google
+AUTH_SECRET=secreto-largo-y-aleatorio
+```
 
-To learn more about Next.js, take a look at the following resources:
+Agrega estos URI de redirección autorizados en Google Cloud:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Desarrollo: `http://localhost:3000/api/auth/callback/google`
+- Producción: `https://tu-dominio.com/api/auth/callback/google`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Solo la cuenta cuyo correo coincide con `ADMIN_EMAIL` puede completar el acceso al editor. Define siempre un `AUTH_SECRET` seguro antes de desplegar.
 
-## Deploy on Vercel
+## Blog
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+La capa de dominio depende de la interfaz `BlogRepository` en `lib/blog/types.ts`. SQLite es solo el adaptador actual (`SqliteBlogRepository`), de modo que puede sustituirse por PostgreSQL, una API o un CMS implementando la misma interfaz y cambiando la factoría de `lib/blog/repository.ts`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+La base local se crea en `data/blog.db` y no se versiona. Puede cambiarse con `BLOG_DATABASE_PATH`.
+
+El editor editorial usa Tiptap y guarda HTML sanitizado. Permite formato, listas, citas, código, enlaces, imágenes por URL y subida local de imágenes PNG, JPG, WebP o GIF de hasta 5 MB. Las imágenes subidas se guardan en `public/uploads`.
+
+## Publicación nativa en LinkedIn
+
+Desde `Blog → Área privada → Configurar LinkedIn` puedes vincular el perfil que publicará las entradas. Registra una aplicación de LinkedIn con el producto **Share on LinkedIn**, solicita el permiso `w_member_social` y configura este callback:
+
+```text
+http://localhost:3000/api/social/linkedin/callback
+```
+
+En producción sustituye `localhost:3000` por el dominio público HTTPS. Añade `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET` y `SOCIAL_TOKEN_ENCRYPTION_KEY` a `.env.local`. La conexión y cada resultado de publicación se guardan en SQLite; el token se cifra con AES-256-GCM antes de persistirse.
+
+## Comandos
+
+```bash
+npm run lint
+npm run build
+npm run start
+```
