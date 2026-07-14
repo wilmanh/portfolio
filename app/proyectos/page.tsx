@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Package } from "react-feather";
 import { Button, Container } from "react-ui-vegetas-wife";
 
 import Link from "next/link";
@@ -27,7 +28,9 @@ export default function ProjectsPage() {
       <section className="section-pad">
         <Container>
           <div className="empty-state">
-            <div className="empty-orbit">✦</div>
+            <div className="empty-orbit">
+              <Package size={48} />
+            </div>
             <h2 className="section-heading">
               <LanguageText es={es.projects.comingSoon} en={en.projects.comingSoon} />
             </h2>

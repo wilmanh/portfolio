@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { Zap } from "react-feather";
 import { Button, Container } from "react-ui-vegetas-wife";
 
 import Link from "next/link";
 
 import { LanguageText } from "@/components/language-text";
-import { getBlogRepository } from "@/lib/blog/repository";
 import en from "@/lang/en";
 import es from "@/lang/es";
+import { getBlogRepository } from "@/lib/blog/repository";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -41,7 +42,8 @@ export default async function BlogPage() {
                   <div className="blog-card-accent" />
                   <div className="blog-card-body">
                     <span className="blog-meta">
-                      {date(post.createdAt)} · {Math.max(1, Math.ceil(post.content.split(/\s+/).length / 200))} <LanguageText es={es.blog.minutes} en={en.blog.minutes} />
+                      {date(post.createdAt)} · {Math.max(1, Math.ceil(post.content.split(/\s+/).length / 200))}{" "}
+                      <LanguageText es={es.blog.minutes} en={en.blog.minutes} />
                     </span>
                     <h2>{post.title}</h2>
                     <p className="muted">{post.excerpt}</p>
@@ -55,7 +57,9 @@ export default async function BlogPage() {
             </div>
           ) : (
             <div className="empty-state">
-              <div className="empty-orbit">⌁</div>
+              <div className="empty-orbit">
+                <Zap size={48} />
+              </div>
               <h2 className="section-heading">
                 <LanguageText es={es.blog.emptyTitle} en={en.blog.emptyTitle} />
               </h2>
