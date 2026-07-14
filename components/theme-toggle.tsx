@@ -1,6 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "react-feather";
+import { Button } from "react-ui-vegetas-wife";
 
 export function ThemeToggle() {
   const toggleTheme = () => {
@@ -11,7 +12,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <button
+    <Button
       className="theme-toggle"
       type="button"
       onClick={toggleTheme}
@@ -20,6 +21,6 @@ export function ThemeToggle() {
     >
       <Sun className="theme-icon theme-icon-sun" aria-hidden="true" />
       <Moon className="theme-icon theme-icon-moon" aria-hidden="true" />
-    </button>
+    </Button>
   );
 }

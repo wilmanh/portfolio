@@ -9,9 +9,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { LanguageToggle } from "@/components/language-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import en from "@/lang/en";
 import es from "@/lang/es";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   { href: "/", es: es.navigation.home, en: en.navigation.home, icon: Home },
@@ -24,10 +24,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   return (
-    // <header>
-    <header
-    // className="nav-shell"
-    >
+    <header>
       <Navbar className="is-fixed-top" aria-label="Navegación principal">
         <NavbarBrand>
           <Link className="navbar-item" href="/" onClick={() => setOpen(false)}>
@@ -49,6 +46,7 @@ export function SiteHeader() {
           <NavbarStart>
             {links.map((link) => (
               <Link
+                style={{ display: "flex" }}
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
@@ -61,7 +59,7 @@ export function SiteHeader() {
             ))}
           </NavbarStart>
           <NavbarEnd>
-            <Link href="/blog/admin" className="navbar-item nav-login">
+            <Link href="/blog/admin" className="navbar-item">
               <Lock size={16} aria-hidden="true" />
             </Link>
             <div className="navbar-item theme-toggle-item">
