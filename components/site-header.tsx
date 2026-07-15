@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { BookOpen, Briefcase, Home, Lock, Mail } from "react-feather";
-import { Navbar, NavbarBrand, NavbarBurger, NavbarEnd, NavbarMenu, NavbarStart } from "react-ui-vegetas-wife";
+import { Button, Navbar, NavbarBrand, NavbarBurger, NavbarEnd, NavbarMenu, NavbarStart } from "react-ui-vegetas-wife";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -25,9 +25,9 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   return (
     <header>
-      <Navbar className="is-fixed-top" aria-label="Navegación principal">
+      <Navbar className="is-fixed-top item-gap" aria-label="Navegación principal">
         <NavbarBrand>
-          <Link className="navbar-item" href="/" onClick={() => setOpen(false)}>
+          <Link className="navbar-item item-small" href="/" onClick={() => setOpen(false)}>
             <figure className="image is-64x64">
               <Image
                 className="is-rounded"
@@ -43,14 +43,14 @@ export function SiteHeader() {
           <NavbarBurger active={open} onClick={() => setOpen(!open)} aria-label="Abrir menú" />
         </NavbarBrand>
         <NavbarMenu active={open}>
-          <NavbarStart>
+          <NavbarStart className="item-gap">
             {links.map((link) => (
               <Link
                 style={{ display: "flex" }}
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className={`navbar-item ${pathname === link.href ? "is-active" : ""}`}
+                className={`navbar-item item-small ${pathname === link.href ? "is-active" : ""}`}
               >
                 <link.icon size={17} aria-hidden="true" />
                 <span className="language-es">{link.es}</span>
@@ -59,13 +59,13 @@ export function SiteHeader() {
             ))}
           </NavbarStart>
           <NavbarEnd>
-            <Link href="/blog/admin" className="navbar-item">
+            <Link href="/blog/admin" className="navbar-item item-small">
               <Lock size={16} aria-hidden="true" />
             </Link>
-            <div className="navbar-item theme-toggle-item">
+            <div className="navbar-item item-small theme-toggle-item">
               <ThemeToggle />
             </div>
-            <div className="navbar-item theme-toggle-item">
+            <div className="navbar-item item-small theme-toggle-item">
               <LanguageToggle />
             </div>
           </NavbarEnd>
