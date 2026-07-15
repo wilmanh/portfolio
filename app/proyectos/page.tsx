@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BookOpen, ExternalLink, Globe, GitHub } from "react-feather";
+import { BookOpen, ExternalLink, GitHub, Globe } from "react-feather";
 import { Container } from "react-ui-vegetas-wife";
 
 import { LanguageText } from "@/components/language-text";
@@ -80,13 +80,10 @@ export default function ProjectsPage() {
               <span className="blog-meta">Web · Game</span>
               <h2>{es.projects.balloonRaider.title}</h2>
               <p className="muted">
-                <LanguageText
-                  es={es.projects.balloonRaider.description}
-                  en={en.projects.balloonRaider.description}
-                />
+                <LanguageText es={es.projects.balloonRaider.description} en={en.projects.balloonRaider.description} />
               </p>
               <div className="project-links">
-                <a href="https://balloonraider.app/" target="_blank" rel="noreferrer">
+                <a href="https://www.balloonraider.app/" target="_blank" rel="noreferrer">
                   <Globe size={17} />
                   <LanguageText es={es.projects.balloonRaider.website} en={en.projects.balloonRaider.website} />
                   <ExternalLink size={14} />
