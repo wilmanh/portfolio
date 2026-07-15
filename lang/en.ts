@@ -82,9 +82,22 @@ const en = {
   projects: {
     eyebrow: "Laboratory",
     description: "A space for products, experiments, and solutions worth sharing.",
-    comingSoon: "Coming soon",
-    empty: "The best projects are getting ready for launch.",
-    cta: "Let’s build together",
+    vegeta: {
+      title: "Vegeta's Wife",
+      description: "A React wrapper for Bulma CSS with reusable components and interactive documentation.",
+      repository: "View repository",
+      documentation: "View documentation",
+    },
+    portfolio: {
+      title: "Wilman Hernández Portfolio",
+      description: "This personal website, built with Next.js, React, and TypeScript to showcase experience, projects, and technical notes.",
+      repository: "View repository",
+    },
+    balloonRaider: {
+      title: "Balloon Raider",
+      description: "A web-based action adventure game.",
+      website: "Visit website",
+    },
   },
   blog: {
     eyebrow: "Field notes",

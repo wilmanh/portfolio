@@ -529,6 +529,53 @@ a {
   font: 700 1.35rem/1.25 var(--font-display);
   margin: 0.7rem 0;
 }
+.project-card {
+  border-radius: 24px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin-bottom: 1.2rem;
+}
+.project-card-icon {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 auto;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: var(--cyan);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(34, 211, 238, 0.18));
+}
+.project-card-content {
+  flex: 1;
+}
+.project-card h2 {
+  font: 700 clamp(1.8rem, 4vw, 2.8rem)/1.15 var(--font-display);
+  margin: 0.7rem 0;
+}
+.project-card p {
+  max-width: 680px;
+  line-height: 1.7;
+}
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-top: 1.5rem;
+}
+.project-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--heading);
+  font-weight: 700;
+}
+.project-links a:hover {
+  color: var(--cyan);
+  transform: translateY(-2px);
+}
 .blog-meta {
   font-size: 0.75rem;
   color: var(--cyan);
