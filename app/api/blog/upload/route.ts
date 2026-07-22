@@ -7,6 +7,11 @@ import { isAuthenticated } from "@/lib/auth";
 export const runtime = "nodejs";
 const allowedTypes = new Set(["image/png", "image/jpeg", "image/webp", "image/gif"]);
 const extensions: Record<string, string> = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/gif": "gif" };
+const hasBlobStorage = Boolean(
+  process.env.BLOB_READ_WRITE_TOKEN ||
+  (process.env.VERCEL_OIDC_TOKEN && process.env.BLOB_STORE_ID),
+);
+
 export async function POST(request: Request) {
   try {
     if (!(await isAuthenticated())) return NextResponse.json({ error: "No autorizado" }, { status: 401 });
@@ -17,7 +22,7 @@ export async function POST(request: Request) {
     if (entry.size > 5 * 1024 * 1024) return NextResponse.json({ error: "La imagen no puede superar 5 MB" }, { status: 400 });
 
     const filename = `${randomUUID()}.${extensions[entry.type]}`;
-    if (process.env.BLOB_READ_WRITE_TOKEN) {
+    if (hasBlobStorage) {
       const blob = await put(`blog/${filename}`, entry, { access: "public", contentType: entry.type, addRandomSuffix: false });
       return NextResponse.json({ url: blob.url });
     }
