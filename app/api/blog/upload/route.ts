@@ -23,7 +23,14 @@ export async function POST(request: Request) {
 
     const filename = `${randomUUID()}.${extensions[entry.type]}`;
     if (hasBlobStorage) {
-      const blob = await put(`blog/${filename}`, entry, { access: "public", contentType: entry.type, addRandomSuffix: false });
+      const blob = await put(`blog/${filename}`, entry, {
+        access: "public",
+        contentType: entry.type,
+        addRandomSuffix: false,
+        // Vercel injects VERCEL_OIDC_TOKEN for the linked Blob Store.
+        oidcToken: process.env.VERCEL_OIDC_TOKEN,
+        storeId: process.env.BLOB_STORE_ID,
+      });
       return NextResponse.json({ url: blob.url });
     }
 
