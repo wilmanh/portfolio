@@ -46,7 +46,9 @@ DATABASE_URL=postgresql://usuario:contrasena@host.neon.tech/neondb?sslmode=requi
 
 En el siguiente despliegue las tablas `posts`, `social_connections` y `social_publications` se crean automáticamente. No definas `BLOG_DATABASE_PATH` en Vercel.
 
-El editor editorial usa Tiptap y guarda HTML sanitizado. Permite formato, listas, citas, código, enlaces, imágenes por URL y subida local de imágenes PNG, JPG, WebP o GIF de hasta 5 MB. Las imágenes subidas se guardan en `public/uploads`.
+Para subir imágenes en Vercel, crea un Blob Store y registra también su variable `BLOB_READ_WRITE_TOKEN` en el proyecto. En desarrollo, si esa variable no existe, las imágenes se guardan en `public/uploads`.
+
+El editor editorial usa Tiptap y guarda HTML sanitizado. Permite formato, listas, citas, código, enlaces, imágenes por URL y subida de imágenes PNG, JPG, WebP o GIF de hasta 5 MB. En producción las imágenes se guardan en Vercel Blob.
 
 ## Publicación nativa en LinkedIn
 
