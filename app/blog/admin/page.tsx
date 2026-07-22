@@ -1,4 +1,4 @@
-import { Button, Container, Control, Field, Input, Label, Notification, Textarea } from "react-ui-vegetas-wife";
+import { Button, Container, Notification } from "react-ui-vegetas-wife";
 
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import Link from "next/link";
 import { isAuthenticated } from "@/lib/auth";
 
 import { createPost, logout } from "../actions";
-import { RichTextEditor } from "@/components/rich-text-editor";
+import { BlogPostForm } from "@/components/blog-post-form";
 
 export default async function AdminPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   if (!(await isAuthenticated())) redirect("/blog/login");
@@ -31,40 +31,10 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
           <div className="admin-form glass">
             {error && (
               <Notification color="danger">
-                Revisa los campos: título (4+), resumen (10+) y contenido (30+ caracteres). Puedes insertar imágenes desde una URL o subirlas desde tu equipo.
+                Revisa los campos: título (4+), resumen (10+) y contenido (30+ caracteres, salvo que incluya una imagen). Puedes insertar imágenes desde una URL o subirlas desde tu equipo.
               </Notification>
             )}
-            <form action={createPost}>
-              <Field>
-                <Label htmlFor="title">Título</Label>
-                <Control>
-                  <Input
-                    id="title"
-                    name="title"
-                    required
-                    minLength={4}
-                    placeholder="Una idea que merece ser compartida"
-                  />
-                </Control>
-              </Field>
-              <Field>
-                <Label htmlFor="excerpt">Resumen</Label>
-                <Control>
-                  <Textarea
-                    id="excerpt"
-                    name="excerpt"
-                    required
-                    minLength={10}
-                    rows={3}
-                    placeholder="Una introducción breve para la tarjeta..."
-                  />
-                </Control>
-              </Field>
-              <Field><Label htmlFor="content">Contenido</Label><Control><RichTextEditor name="content" required /></Control></Field>
-              <Button color="primary" type="submit" size="large">
-                Publicar entrada →
-              </Button>
-            </form>
+            <BlogPostForm action={createPost} />
           </div>
         </Container>
       </section>
